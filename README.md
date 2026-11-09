@@ -218,6 +218,4 @@ Requested ATTITUDE and POSITION from the drone
 - Props **off** for all bench testing.
 - Fly real hardware only within visual line of sight and local rules (FAA registration and Remote ID in the US, check airspace with B4UFLY).
 
-## Team
 
-- **Syed Rizwan Uddin**: telemetry software, data pipeline, build tooling
