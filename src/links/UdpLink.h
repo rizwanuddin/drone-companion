@@ -12,6 +12,8 @@ public:
     UdpLink(int port) {
         this->port = port;
         this->sock = -1;
+        this->hasSender = false;
+        memset(&lastSender, 0, sizeof(lastSender));
     }
 
     bool openLink() override {
@@ -37,8 +39,23 @@ public:
     }
 
     int readBytes(uint8_t* buffer, int maxBytes) override {
-        ssize_t bytesReceived = recvfrom(sock, buffer, maxBytes, 0, nullptr, nullptr);
+        sockaddr_in sender;
+        socklen_t senderLength = sizeof(sender);
+        ssize_t bytesReceived = recvfrom(sock, buffer, maxBytes, 0, (sockaddr*)&sender, &senderLength);
+
+        if (bytesReceived > 0) {
+            lastSender = sender;
+            hasSender = true;
+        }
         return (int)bytesReceived;
+    }
+
+    int writeBytes(const uint8_t* buffer, int numBytes) override {
+        if (hasSender == false) {
+            return 0;
+        }
+        ssize_t bytesSent = sendto(sock, buffer, numBytes, 0, (sockaddr*)&lastSender, sizeof(lastSender));
+        return (int)bytesSent;
     }
 
     void closeLink() override {
@@ -51,4 +68,6 @@ public:
 private:
     int port;
     int sock;
+    sockaddr_in lastSender;
+    bool hasSender;
 };
