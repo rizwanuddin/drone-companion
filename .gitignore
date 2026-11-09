@@ -1,3 +1,6 @@
+build/
+build-pi/
+.DS_Store
 *.bin
 *.pyc
 .env

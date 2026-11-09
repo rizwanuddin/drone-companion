@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/user/drone-project/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
