@@ -1,16 +1,31 @@
 #pragma once
 #include "Link.h"
+#include <string>
 #include <cstring>
 #include <cstdio>
 #include <sys/socket.h>
+#include <sys/time.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 
 class UdpLink : public Link {
 public:
-    UdpLink(int port) {
-        this->port = port;
+    // LISTEN mode: wait on a port for data (SITL via MAVProxy)
+    UdpLink(int listenPort) {
+        this->isClient = false;
+        this->port = listenPort;
+        this->remoteIp = "";
+        this->sock = -1;
+        this->hasSender = false;
+        memset(&lastSender, 0, sizeof(lastSender));
+    }
+
+    // CLIENT mode: talk first to a server (mavlink-router on the Pi)
+    UdpLink(std::string remoteIp, int remotePort) {
+        this->isClient = true;
+        this->port = remotePort;
+        this->remoteIp = remoteIp;
         this->sock = -1;
         this->hasSender = false;
         memset(&lastSender, 0, sizeof(lastSender));
@@ -21,6 +36,21 @@ public:
         if (sock < 0) {
             perror("socket failed");
             return false;
+        }
+
+        // Give up waiting for data after 1 second, so the program can send heartbeats
+        timeval timeout;
+        timeout.tv_sec = 1;
+        timeout.tv_usec = 0;
+        setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+
+        if (isClient == true) {
+            // We know the server's address up front, so we can send immediately
+            lastSender.sin_family = AF_INET;
+            lastSender.sin_addr.s_addr = inet_addr(remoteIp.c_str());
+            lastSender.sin_port = htons(port);
+            hasSender = true;
+            return true;
         }
 
         sockaddr_in address;
@@ -66,7 +96,9 @@ public:
     }
 
 private:
+    bool isClient;
     int port;
+    std::string remoteIp;
     int sock;
     sockaddr_in lastSender;
     bool hasSender;
