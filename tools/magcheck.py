@@ -1,3 +1,4 @@
+#checks compass health
 import socket, struct, time
 
 def crc16(data, extra):
