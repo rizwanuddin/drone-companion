@@ -601,6 +601,7 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/format
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/functional
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/initializer_list
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iomanip
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ios
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iosfwd
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream
@@ -642,6 +643,7 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/wctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/gethostuuid.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/_endian.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/_limits.h
@@ -716,6 +718,7 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_set.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_setsize.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_zero.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsblkcnt_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsfilcnt_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h
@@ -736,11 +739,14 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_nlink_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigaltstack.h
@@ -771,6 +777,8 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/constrained_ctypes.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/errno.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/ioccom.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/qos.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/resource.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h
@@ -778,9 +786,13 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/socket.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/termios.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/ttycom.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/ttydefaults.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/termios.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/wchar.h
@@ -1065,5 +1077,6 @@ CMakeFiles/telemetry.dir/src/main.cpp.o
  /Users/user/drone-project/external/c_library_v2/common/mavlink.h
  /Users/user/drone-project/external/c_library_v2/common/version.h
  /Users/user/drone-project/src/links/Link.h
+ /Users/user/drone-project/src/links/SerialLink.h
  /Users/user/drone-project/src/links/UdpLink.h
 

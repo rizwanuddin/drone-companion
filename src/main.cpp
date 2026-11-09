@@ -1,23 +1,63 @@
 #include <iostream>
+#include <iomanip>
+#include <string>
 #include <common/mavlink.h>
 #include "links/UdpLink.h"
-#include <iomanip>
+#include "links/SerialLink.h"
 
-int main() {
-    UdpLink link(14551);
+const double RAD_TO_DEG = 57.2957795;
 
-    if (link.openLink() == false) {
+void requestMessage(Link* link, int messageId, int timesPerSecond) {
+    mavlink_message_t message;
+    float intervalMicroseconds = 1000000.0f / timesPerSecond;
+
+    mavlink_msg_command_long_pack(
+        255, 190, &message,
+        1, 1,
+        MAV_CMD_SET_MESSAGE_INTERVAL, 0,
+        (float)messageId, intervalMicroseconds,
+        0, 0, 0, 0, 0);
+
+    uint8_t sendBuffer[MAVLINK_MAX_PACKET_LEN];
+    int length = mavlink_msg_to_send_buffer(sendBuffer, &message);
+    link->writeBytes(sendBuffer, length);
+}
+
+int main(int argc, char* argv[]) {
+    std::string mode = "udp";
+    std::string devicePath = "";
+    if (argc >= 2) {
+        mode = argv[1];
+    }
+    if (argc >= 3) {
+        devicePath = argv[2];
+    }
+
+    UdpLink udpLink(14551);
+    SerialLink serialLink(devicePath);
+    Link* link = &udpLink;
+
+    if (mode == "serial") {
+        if (devicePath == "") {
+            std::cout << "Usage: ./build/telemetry serial /dev/cu.usbmodemXXXX" << std::endl;
+            return 1;
+        }
+        link = &serialLink;
+    }
+
+    if (link->openLink() == false) {
         std::cout << "Could not open link" << std::endl;
         return 1;
     }
-    std::cout << "Listening for drone on UDP port 14551..." << std::endl;
+    std::cout << "Connected using " << mode << ". Waiting for drone..." << std::endl;
 
     uint8_t buffer[2048];
     mavlink_message_t message;
     mavlink_status_t status;
+    bool alreadyRequested = false;
 
     while (true) {
-        int bytesReceived = link.readBytes(buffer, sizeof(buffer));
+        int bytesReceived = link->readBytes(buffer, sizeof(buffer));
         if (bytesReceived <= 0) {
             continue;
         }
@@ -27,7 +67,6 @@ int main() {
             if (gotFullMessage == false) {
                 continue;
             }
-
             if (message.sysid != 1) {
                 continue;
             }
@@ -40,9 +79,25 @@ int main() {
                 if (heartbeat.base_mode & MAV_MODE_FLAG_SAFETY_ARMED) {
                     isArmed = true;
                 }
-
                 std::cout << "[HEARTBEAT] armed=" << (isArmed ? "yes" : "no")
                           << " mode=" << heartbeat.custom_mode << std::endl;
+
+                if (alreadyRequested == false) {
+                    requestMessage(link, MAVLINK_MSG_ID_ATTITUDE, 4);
+                    requestMessage(link, MAVLINK_MSG_ID_GLOBAL_POSITION_INT, 2);
+                    alreadyRequested = true;
+                    std::cout << "Requested ATTITUDE and POSITION from the drone" << std::endl;
+                }
+            }
+
+            if (message.msgid == MAVLINK_MSG_ID_ATTITUDE) {
+                mavlink_attitude_t attitude;
+                mavlink_msg_attitude_decode(&message, &attitude);
+
+                std::cout << std::fixed << std::setprecision(1)
+                          << "[ATTITUDE] roll=" << attitude.roll * RAD_TO_DEG
+                          << " pitch=" << attitude.pitch * RAD_TO_DEG
+                          << " yaw=" << attitude.yaw * RAD_TO_DEG << std::endl;
             }
 
             if (message.msgid == MAVLINK_MSG_ID_GLOBAL_POSITION_INT) {
@@ -62,6 +117,6 @@ int main() {
         }
     }
 
-    link.closeLink();
+    link->closeLink();
     return 0;
 }
