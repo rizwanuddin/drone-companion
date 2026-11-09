@@ -1,0 +1,5 @@
+*.bin
+*.pyc
+.env
+askpass.sh
+pissh*.sh
