@@ -74,9 +74,9 @@ sequenceDiagram
 | Part | Model | Notes |
 | --- | --- | --- |
 | Frame | 5-inch quadcopter | Running a 3S LiPo |
-| Flight controller | MicoAir405v2 | ArduCopter 4.5.7, BMI088 IMU, SPL06 barometer |
-| GPS + compass | HGLRC M100-5883 | GPS on a UART, compass on I2C |
-| Companion computer | Raspberry Pi Zero 2 W | Runs this program on the drone |
+| Flight controller | MicoAir405v2 | ArduCopter 4.7.2, BMI088 IMU, SPL06 barometer |
+| GPS + compass | HGLRC M100-5883 | GPS on UART (SERIAL3), compass (QMC5883P) on I2C. Both detected and healthy on the bench. Compass calibrated. GPS fix outdoors not yet confirmed |
+| Companion computer | Raspberry Pi Zero 2 W | Runs this program on the drone. Connects to the FC over USB and relays MAVLink to QGroundControl over Wi-Fi via mavlink-router |
 | Camera | Raspberry Pi camera module | Planned |
 | Rangefinder | Garmin LIDAR-Lite v3 | Planned (downward-facing) |
 
@@ -204,7 +204,12 @@ Requested ATTITUDE and POSITION from the drone
 - [x] Live telemetry from ArduPilot SITL (UDP)
 - [x] Live telemetry from a real flight controller (serial/USB)
 - [x] Raspberry Pi build with Docker
-- [ ] GPS wired to the flight controller (real coordinates)
+- [x] GPS and compass wired and detected (QMC5883P needs Copter 4.7.2)
+- [x] Pi relays MAVLink to QGroundControl (mavlink-router as a systemd service)
+- [x] Xbox joystick through QGC, radio and GCS failsafe bench-tested (props off)
+- [ ] GPS fix outdoors, compass recalibration for a green bar, heading check
+- [ ] Measure joystick latency over Wi-Fi
+- [ ] Short low hover in Stabilize
 - [ ] `TelemetrySample` struct to separate parsing from output
 - [ ] Flight logging to CSV
 - [ ] Sending commands from code (arm, takeoff, fly to a point, land)
